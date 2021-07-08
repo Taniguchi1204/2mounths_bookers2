@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :relationships, class_name: "Relationship", foreign_key: "following_id",dependent: :destroy
   has_many :followings, through: :relationships, source: :followed
 
+  has_many :groups, dependent: :destroy
+
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
 
@@ -42,6 +44,6 @@ class User < ApplicationRecord
 			User.where("name like ?", "%#{content}%")
 		end
 	end
-	
-	
+
+
 end
