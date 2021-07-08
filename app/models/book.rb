@@ -24,4 +24,9 @@ class Book < ApplicationRecord
 			Book.where("title like ?", "%#{content}%")
 		end
 	end
+
+	scope :today_books, -> { where(created_at: Time.zone.now.all_day) }
+  scope :yesterday_books, -> { where(created_at: 1.day.ago.all_day) }
+  scope :week_books, -> { where(created_at: 6.day.ago.at_beginning_of_day..Time.zone.now.at_end_of_day) }
+  scope :last_week_books, -> { where(created_at: 2.week.ago.at_beginning_of_day..1.week.ago.at_end_of_day) }
 end

@@ -42,4 +42,6 @@ class User < ApplicationRecord
 			User.where("name like ?", "%#{content}%")
 		end
 	end
+	
+	
 end
