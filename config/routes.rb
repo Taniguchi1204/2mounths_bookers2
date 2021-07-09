@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create,:destroy]
   end
 
-  resources :groups, only:[:index,:show,:new,:edit,:update,:create]
+  resources :groups, only:[:index,:show,:new,:edit,:update,:create] do
+    resource :user_groups, only:[:create,:destroy]
+  end
   resources :chats, only:[:show,:create]
 
   get "search" => "search#search"

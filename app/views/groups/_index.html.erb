@@ -14,7 +14,7 @@
         <td><%= group.name %></td>
         <td><%= group.introduction %></td>
         <td><%= link_to 'Show', group_path(group) %></td>
-        <% if group != current_user %>
+        <% if group.user_id == current_user.id %>
         <td>
           <%= link_to "Edit", edit_group_path(group) %>
         </td>

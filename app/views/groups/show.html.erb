@@ -13,8 +13,19 @@
   		    <td><%= attachment_image_tag(@group, :image, :fill, 100, 100, fallback: "no-image-icon.jpg") %></td>
   		    <td><%=  @group.name  %></td>
           <td><%= @group.introduction %></td>
+          <td>
+            <% @group.users.each do |user| %>
+              <p><%= user.name %></p>
+            <% end %>
+          </td>
           <% if @group.user == current_user %>
             <td><%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-success" %></td>
+          <% else %>
+            <% if @group.group_by?(current_user) %>
+              <td><%= link_to "Leave this group",group_user_groups_path(@group), method: :delete %></td>
+            <% else %>
+              <td><%= link_to "Join this group",group_user_groups_path(@group), method: :post %></td>
+            <% end %>
           <% end %>
         </tr>
       </table>

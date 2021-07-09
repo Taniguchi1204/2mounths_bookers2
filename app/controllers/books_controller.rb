@@ -17,6 +17,15 @@ class BooksController < ApplicationController
     b.favorites.where(created_at: from...to).size <=>
     a.favorites.where(created_at: from...to).size
     }
+    @today = Book.today_books.count
+    @yesterday_books = Book.yesterday_books.count
+    @books_2day = Book.books_2day.count
+    @books_3day = Book.books_3day.count
+    @books_4day = Book.books_4day.count
+    @books_5day = Book.books_5day.count
+    @books_6day = Book.books_6day.count
+    @books_7day = Book.books_7day.count
+
   end
 
   def create
