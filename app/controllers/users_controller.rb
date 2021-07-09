@@ -29,6 +29,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    @user = User.find(params[:user_id])
+    @books = @user.books
+    @book = Book.new
+    if params[:content] == ""
+      @date = "日付を入力してください"
+    else
+      content = params[:content]
+      @date = @books.where("created_at like ?", "#{content}%").count
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)

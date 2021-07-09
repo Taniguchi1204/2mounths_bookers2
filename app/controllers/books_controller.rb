@@ -6,6 +6,11 @@ class BooksController < ApplicationController
     @book_comment = BookComment.new
     @book = Book.find(params[:id])
     @user = @book.user
+    view = current_user.view_counts.find_by(book_id: @book.id)
+    if view.nil?
+      view = current_user.view_counts.new(book_id: @book.id)
+      view.save
+    end
   end
 
   def index
@@ -59,6 +64,21 @@ class BooksController < ApplicationController
     @book.destroy
     redirect_to books_path
   end
+
+  def books_sort
+    @book = Book.new
+    @books_sort = Book.all.order(params[:sort])
+    @today = Book.today_books.count
+    @yesterday_books = Book.yesterday_books.count
+    @books_2day = Book.books_2day.count
+    @books_3day = Book.books_3day.count
+    @books_4day = Book.books_4day.count
+    @books_5day = Book.books_5day.count
+    @books_6day = Book.books_6day.count
+    @books_7day = Book.books_7day.count
+  end
+
+  
 
   private
 
